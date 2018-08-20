@@ -1,0 +1,117 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>gulp</title><link rel="stylesheet" href="./css/reset.css"><link rel="stylesheet" href="./css/mixins.css"><link rel="stylesheet" href="./css/dist.min.css"><link rel="stylesheet" href="./css/swiper.min.css"></head><body><div class="wrap"><header class="header"><div class="navbar"><div class="container clearfix"><h1 class="logo">到位</h1><div class="navbar-right"><ul class="navbar-nav clearfix"><li><a href="javascript:;"><img src="./images/citypoint.png" alt=""> <span id="showCity">深圳</span> <span>城市切换</span></a></li><li><a href="javascript:;" class="home">首页</a></li><li><a href="javascript:;">到位App</a></li><li><a href="javascript:;">服务商</a></li><li><a href="javascript:;">商家注入</a></li><li><a href="javascript:;">关于我们</a></li><li class="shangjia-right"><a href="javascript:;">商家登录</a></li></ul></div></div></div></header><div class="banner"><div class="swiper-container"><div class="swiper-wrapper"><div class="swiper-slide"></div><div class="swiper-slide"></div><div class="swiper-slide"></div></div><div class="swiper-pagination swiper-pagination-white"></div></div><div class="banner-nav"><ul class="server-list"></ul></div></div><div class="service-collection"></div><div class="guarantee"><h2>到位 <span>服务</span> 保障</h2><p>到位平台担保交易安全，交易未成功100%退款</p></div><div class="servi"><ul><li><img src="../images/anquan.jpg" alt="">优先服务</li><li><img src="../images/anquan.jpg" alt="">全程保障</li><li><img src="../images/anquan.jpg" alt="">安全无忧</li></ul></div><footer class="footer"><div class="footer-container"><div class="hot-city">热门城市</div><div class="city-list"></div></div></footer><div class="partner"><p class="title">合作伙伴</p><div class="cooperation"><ul><li><img src="../images/partner01.jpg" alt=""></li></ul></div></div></div><script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script><script src="./js/template.js"></script><script src="./js/swiper.min.js"></script></body><script id="nav-list" type="text/html">{{each data as value i}}
+  <li>
+    <a href="javascript:;">
+      <sapn class="serviceClassify">{{value.serviceIndex}}</sapn>
+      <img src="./images/right.png" alt="" class="right">
+      <img src="images/icon1.png" alt="" class="left">
+    </a>
+    <ul class="hover-nav-list">
+      {{each value.serviceType as value i}}
+      <li>
+        <a href="javascript:;" class="serviceDetail">{{value}}</a>
+      </li>
+      {{/each}}
+    </ul>
+  </li>
+  {{/each}}</script><script id="service-list" type="text/html">{{each data as value i}}
+  <div class="service-wrap">
+    <div class="service-container">
+      <div class="service-body">
+        <div class="navigation">
+          <span class="serviceIndex">{{value.serviceIndex}}</span>
+          <span class="serviceType">
+            {{each value.serviceType as type i}}
+            <a href="javascript:;">{{type}}</a>
+            {{/each}}
+          </span>
+        </div>
+        <div class="servicetags">
+          <div class="tagsListHeader">
+            <div class="lookMore">
+              <a href="javascript:;">更多服务></a>
+            </div>
+          </div>
+          <div class="row">
+            {{each value.shopList as value i}}
+            <a href="javascript:;" class="form-group shopList">
+              <div class="ServiceBorder">
+                <img class="serviceImg"
+                     src="{{value.imgUrl}}" alt="">
+                <div class="serviceName">{{value.serviceName}}</div>
+                <div class="description">{{value.description}}</div>
+                <div class="price">
+                  <span>{{value.price}}</span>元/4小时
+                  <span class="btn">查看详情</span>
+                </div>
+              </div>
+            </a>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+      <div class="service-provider">
+        {{each value.elseList as value i}}
+        <a href="javascript:;">{{value}}</a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  {{/each}}</script><script id="hot-city" type="text/html">{{each data as city i}}
+    <a href="javascript:;">{{city}}</a>
+  {{/each}}</script><script>/*Initialize Swiper*/
+  $(function () {
+    const swiper = new Swiper('.swiper-container', {
+      spaceBetween: 30,
+      effect: 'fade',
+      autoplay: {
+        delay: 2500,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      }
+    });
+  });
+
+  $(function () {
+    /*banner, service数据*/
+    $.get('http://localhost:3000/index', function (data) {
+      let obj = {data};
+      /* banner 左侧导航 */
+      const navList = template('nav-list', obj);
+      /* 服务列表 */
+      const serviceList = template('service-list', obj);
+      $('.server-list').append(navList);
+      $('.service-collection').append(serviceList);
+
+      // 获取banner的左侧导航列表
+      const $leftNavLis = $('.server-list>li');
+      // 遍历所有$leftNavLis
+      $leftNavLis.each(function () {
+        // 存储下标
+        let index = $(this).index();
+        // hover事件
+        $(this).hover(function () {
+          $(this).find(".hover-nav-list").css({"top": -index * 42 + "px"})
+        })
+      })
+    })
+
+    /*hotCity数据*/
+    $.get('http://localhost:3000/hotCity', function (data) {
+      let obj = {data};
+      /* 热门城市 */
+      const hotCity = template('hot-city', obj);
+      console.log(hotCity);
+      $('.city-list').append(hotCity);
+    })
+  });
+
+  /*header*/
+  $(function () {
+    // 找到头部导航的li( 除了最后一个li )
+    const $headerNavLis = $('.navbar-nav li:not(.shangjia-right)');
+    // for (var i = 0; var len = $headerNavLis.length, )
+
+  });</script></html>
