@@ -101,14 +101,33 @@
   <!-- partner -->
   <div class="partner">
     <p class="title">合作伙伴</p>
-    <div class="cooperation">
-      <ul>
-        <li>
-          <img src="../images/partner01.jpg" alt="">
-        </li>
-      </ul>
-    </div>
+    <ul class="cooperation clearfix">
+      <li><a href=""><img src="images/partner01.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner02.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner03.png" alt=""></a></li>
+      <li><a href=""><img src="images/partner04.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner05.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner06.png" alt=""></a></li>
+      <li><a href=""><img src="images/partner07.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner08.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner09.jpg" alt=""></a></li>
+    </ul>
+    <ul class="cooperation clearfix">
+      <li><a href=""><img src="images/partner10.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner11.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner12.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner13.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner14.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner15.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner16.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner17.jpg" alt=""></a></li>
+      <li><a href=""><img src="images/partner18.jpg" alt=""></a></li>
+    </ul>
   </div>
+  <!-- address -->
+  <address class="address">
+    <p>©2015 版权所有 到位 daoway.com 京ICP备15001471号-1 北京邻家科技有限公司</p>
+  </address>
 </div>
 
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
@@ -185,7 +204,7 @@
 <!-- hot-city模版 -->
 <script id="hot-city" type="text/html">
   {{each data as city i}}
-    <a href="javascript:;">{{city}}</a>
+  <a href="javascript:;">{{city}}</a>
   {{/each}}
 </script>
 <script>
@@ -234,16 +253,20 @@
       let obj = {data};
       /* 热门城市 */
       const hotCity = template('hot-city', obj);
-      console.log(hotCity);
       $('.city-list').append(hotCity);
     })
   });
 
   /*header*/
   $(function () {
-    // 找到头部导航的li( 除了最后一个li )
-    const $headerNavLis = $('.navbar-nav li:not(.shangjia-right)');
-    // for (var i = 0; var len = $headerNavLis.length, )
+    const $header = $('.header')
+    $('body').scroll(function () {
+      if($(this).scrollTop()>70){
+        $header.addClass('on');
+      }else {
+        $header.removeClass('on');
+      }
+    })
 
   });
 </script>
