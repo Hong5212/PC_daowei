@@ -55,7 +55,7 @@ gulp.task('minifycss', function () {
 });
 
 gulp.task('minifyhtml', function () {
-  return gulp.src('src/index.html')
+  return gulp.src('src/*.html')
     .pipe($.htmlmin({
       removeComments: true, // 去除注释
       collapseWhitespace: true  // 去除空格
@@ -77,7 +77,7 @@ gulp.task('watch', ['default'], function () {
   // 配置监视任务
   gulp.watch('./src/js/*.js', ['minifyjs']);
   gulp.watch('./src/less/*.less', ['minifycss']);
-  gulp.watch('./src/index.html', ['minifyhtml']);
+  gulp.watch('./src/*.html', ['minifyhtml']);
 });
 
 /*暂时还没用到js*/

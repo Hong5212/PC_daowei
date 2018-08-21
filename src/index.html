@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>gulp</title>
+  <title>首页</title>
+  <link rel="shortcut icon" href="http://www.daoway.cn/pcimages/favicon.png">
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/mixins.css">
   <link rel="stylesheet" href="./css/dist.min.css">
@@ -26,13 +27,13 @@
               </a>
             </li>
             <li>
-              <a href="javascript:;" class="home">首页</a>
+              <a href="javascript:;" class="active">首页</a>
             </li>
             <li>
               <a href="javascript:;">到位App</a>
             </li>
             <li>
-              <a href="javascript:;">服务商</a>
+              <a href="./facilitator.html">服务商</a>
             </li>
             <li>
               <a href="javascript:;">商家注入</a>
@@ -174,7 +175,7 @@
               <a href="javascript:;">更多服务></a>
             </div>
           </div>
-          <div class="row">
+          <div class="row clearfix">
             {{each value.shopList as value i}}
             <a href="javascript:;" class="form-group shopList">
               <div class="ServiceBorder">
@@ -208,7 +209,7 @@
   {{/each}}
 </script>
 <script>
-  /*Initialize Swiper*/
+  /*轮播图*/
   $(function () {
     const swiper = new Swiper('.swiper-container', {
       spaceBetween: 30,
@@ -235,6 +236,7 @@
       $('.server-list').append(navList);
       $('.service-collection').append(serviceList);
 
+
       // 获取banner的左侧导航列表
       const $leftNavLis = $('.server-list>li');
       // 遍历所有$leftNavLis
@@ -246,7 +248,8 @@
           $(this).find(".hover-nav-list").css({"top": -index * 42 + "px"})
         })
       })
-    })
+
+    });
 
     /*hotCity数据*/
     $.get('http://localhost:3000/hotCity', function (data) {
@@ -257,17 +260,18 @@
     })
   });
 
-  /*header*/
-  $(function () {
-    const $header = $('.header')
-    $('body').scroll(function () {
-      if($(this).scrollTop()>70){
-        $header.addClass('on');
-      }else {
-        $header.removeClass('on');
-      }
-    })
-
-  });
+  /*header淡入淡出*/
+  $('.wrap').scroll(function () {
+    if ($(this).scrollTop()>70) {
+      // $('.header').slideDown('slow', function () {
+      //   $('.header').fadeIn('slow', function () {
+          $('.header').addClass('fixation')
+      console.log($(this).scrollTop());
+      // })
+      // })
+    } else {
+      $('.header').removeClass('fixation')
+    }
+  })
 </script>
 </html>
